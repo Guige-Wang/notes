@@ -22,14 +22,14 @@ git命令：
 - 测试文字
 - `git reflog` 查看包括回滚版本在内的日志
 - 曾经被回滚的版本可以通过`git reflog`来查看日志找到版本号，然后进行回滚
-# 分支命令
+# 分支操作命令
 - `git branch 分支名`创建分支
 - `git branch`查询分支
 - 测试文字，测试修复bug分支
 - `git checkout 分支名`切换分支
 - `git branch -d <branch_name>` 删除分支
   - `git branch -D <branch_name>` 强制删除分支（未推送的本地分支）
-- 
+- `git merge 分支名` 合并分支，将目标分支内容合并到所在的分支
 ## 分支的作用：
 - 默认的主分支通常命名为master，开发中的分支可命名为dev
 - 紧急修复线上项目bug，可创建一个新的分支然后再合并。
