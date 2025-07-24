@@ -19,3 +19,4 @@ git config --global user.name "your name"
 - "git log" 查看日志（版本更新记录）
 # 版本回滚
 - "git reset --hard 版本号" 将代码或文件退回到指定的版本
+- 测试文字
