@@ -27,8 +27,8 @@ git命令：
 - `git branch`查询分支
 - 测试文字，测试修复bug分支
 - `git checkout 分支名`切换分支
-- `git branch -d <branch_name>` 删除分支
-  - `git branch -D <branch_name>` 强制删除分支（未推送的本地分支）
+- `git branch -d 分支名` 删除分支
+  - `git branch -D 分支名` 强制删除分支（未推送的本地分支）
 - `git merge 分支名` 合并分支，将目标分支内容合并到所在的分支
 ## 分支的作用：
 - 默认的主分支通常命名为master，开发中的分支可命名为dev
