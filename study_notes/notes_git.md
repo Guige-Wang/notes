@@ -26,6 +26,7 @@ git命令：
 - `git branch 分支名`创建分支
 - `git branch`查询分支
 - 测试文字，测试修复bug分支
+- 测试文字，新功能，解决分支冲突
 - `git checkout 分支名`切换分支
 - `git branch -d 分支名` 删除分支
   - `git branch -D 分支名` 强制删除分支（未推送的本地分支）
