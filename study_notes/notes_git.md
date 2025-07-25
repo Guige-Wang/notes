@@ -39,5 +39,30 @@ git命令：
 ## 工作流
 - 创建新的项目时至少需要两个分支master 和 development/dev；master是正式环境dev则作为开发环境
 
+
+
 GitHub学习笔记  
 ===========
+
+
+# 新建仓库推送代码步骤
+## 本地仓库为空的情况
+- `echo "# notes" >> README.md`
+- `git init`
+- `git add README.md`
+- `git commit -m "first commit"`
+- `git branch -M master`
+- `git remote add origin https://github.com/Guige-Wang/notes.git` 设置origin为仓库地址
+- `git push -u origin master` 推送master分支到远程仓库
+## 本地仓库有内容的情况
+- `git remote add origin https://github.com/Guige-Wang/notes.git`
+- `git branch -M master`
+- `git push -u origin master`
+# 由于本地缺少正确的根证书或网络环境限制导致的错误及其解决办法
+      $ git push -u origin master
+      fatal: unable to access 'https://github.com/Guige-Wang/notes.git/': SSL certificate problem: unable to get local issuer certificate
+## Windows（使用系统自带的证书）
+`git config --global http.sslBackend schannel`
+## Linux/Mac（更新证书）
+`sudo apt update && sudo apt install ca-certificates`  # Debian/Ubuntu
+`brew update && brew install openssl`                 # Mac
