@@ -44,7 +44,6 @@ git命令：
 GitHub学习笔记  
 ===========
 
-
 # 新建仓库推送代码步骤
 ## 本地仓库为空的情况
 - `echo "# notes" >> README.md`
@@ -52,15 +51,22 @@ GitHub学习笔记
 - `git add README.md`
 - `git commit -m "first commit"`
 - `git branch -M master`
-- `git remote add origin https://github.com/Guige-Wang/notes.git` 设置origin为仓库地址
+- `git remote add origin https://github.com/Guige-Wang/notes.git` 设置origin为远程仓库别名
 - `git push -u origin master` 推送master分支到远程仓库
 ## 本地仓库有内容的情况
 - `git remote add origin https://github.com/Guige-Wang/notes.git`
 - `git branch -M master`
 - `git push -u origin master`
 
-# 远程获取项目 clone
+# 远程获取项目 
+## clone项目
 - `git clone 仓库地址`
+## 拉取代码
+- `git pull origin 分支名称`
+## 推送命令
+- `git push -u origin 分支名称`
+
+
 # 由于本地缺少正确的根证书或网络环境限制导致的错误及其解决办法
       $ git push -u origin master
       fatal: unable to access 'https://github.com/Guige-Wang/notes.git/': SSL certificate problem: unable to get local issuer certificate
