@@ -58,6 +58,9 @@ GitHub学习笔记
 - `git remote add origin https://github.com/Guige-Wang/notes.git`
 - `git branch -M master`
 - `git push -u origin master`
+
+# 远程获取项目 clone
+- `git clone 仓库地址`
 # 由于本地缺少正确的根证书或网络环境限制导致的错误及其解决办法
       $ git push -u origin master
       fatal: unable to access 'https://github.com/Guige-Wang/notes.git/': SSL certificate problem: unable to get local issuer certificate
