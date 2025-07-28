@@ -37,7 +37,7 @@
 ### 分支操作命令
 - `git branch 分支名`创建分支
 - `git branch`查询分支
-- 测试文字，测试修复bug分支
+- `git checkout -b 分支名称`创建并切换分支
 - 测试文字，新功能，解决分支冲突
 - `git checkout 分支名`切换分支
 - `git branch -d 分支名` 删除分支
@@ -97,6 +97,10 @@
   - 邀请步骤:通过仓库的setting中的Collaborators进行邀请其他开发者。
 ### 方式二（适合企业/组织）
   - 可以再GitHub上先创建一个组织，然后要求开发者加入组织，然后在组织的仓库内可以创建多个仓库。（付费）
+
+## 版本管理 tag(标签)
+- `git tag -a v1 -m"第一版"` 给当前版本打上标签（本地仓库）。
+- `git push origin --tags`将标签同步至远程仓库
 
 # GitHub学习笔记  
 
