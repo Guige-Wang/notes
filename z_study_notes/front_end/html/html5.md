@@ -1,0 +1,654 @@
+HTML5学习笔记
+=============
+
+
+# 一、标签
+## 1.`<!DOCTYPE html>` 标签详解
+
+### 1.1 是什么？
+
+`<!DOCTYPE html>` 是一个**文档类型声明**（Document Type Declaration），通常简称为 **DOCTYPE**。
+
+*   **它不是 HTML 标签**：它更像一个给浏览器的“指令”或“说明”。
+*   **它位于最顶端**：它必须是 HTML 文档中的第一行代码，在任何其他内容（甚至是 `<html>` 标签）之前。
+*   **它没有结束标签**：它是一个独立的声明。
+
+### 1.2 作用是什么？
+
+它的核心作用是**触发浏览器的标准模式**，确保浏览器能够尽可能一致地渲染你的网页。
+
+为了理解这一点，我们需要了解一点浏览器的发展历史：
+
+*   **怪异模式（Quirks Mode）**：在早期，不同浏览器（如 Netscape 和 IE）对网页的渲染方式差异很大。为了兼容那些为旧浏览器编写的“古老”网页，现代浏览器引入了一种“怪异模式”。在这种模式下，浏览器会模拟旧浏览器的渲染行为，其中包含很多非标准的、不兼容的“怪异”表现。
+*   **标准模式（Standards Mode）**: 在这种模式下，浏览器会严格按照 W3C 等组织制定的 web 标准来渲染和解析页面，这能确保你的页面在不同浏览器中拥有一致的外观和行为。
+
+`<!DOCTYPE html>` 就是告诉浏览器：“请使用标准模式来渲染这个文档”。
+
+### 1.3 为什么它如此重要？
+
+如果没有正确的 `<!DOCTYPE>` 声明，或者它被错误地放置（不是第一行），浏览器就会进入**怪异模式**。这会导致一系列问题：
+
+1.  **布局和样式错乱**：CSS 的盒模型、高度宽度计算、边距合并等行为会变得不可预测，与你预期的标准行为不符。
+2.  **跨浏览器兼容性问题**：不同浏览器的怪异模式行为也可能不同，导致你的页面在某些浏览器上完全崩溃。
+3.  **现代特性无法使用**：一些新的 HTML5 和 CSS3 特性可能无法正常工作。
+
+#### 1.4 历史演变（了解即可）
+
+`<!DOCTYPE>` 的声明在 HTML 4.01 和 XHTML 1.0 时代非常复杂和冗长，因为它需要引用 DTD（文档类型定义）文件。
+
+例如，HTML 4.01 严格模式的声明：
+```html
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+```
+
+而 **HTML5** 极大地简化了这一切。它不再基于 SGML，因此不需要引用 DTD。现在的声明变得非常简单明了：
+```html
+<!DOCTYPE html>
+```
+
+这种简洁的形式是所有现代 HTML 文档的标配。
+
+---
+
+### 总结与最佳实践
+
+| 项目 | 说明 |
+| :--- | :--- |
+| **定义** | 文档类型声明，用于指示浏览器使用标准模式渲染页面。 |
+| **位置** | **必须** 位于 HTML 文档的**绝对第一行**。 |
+| **语法** | `<!DOCTYPE html>` （全小写也可：`<!doctype html>`） |
+| **重要性** | 避免浏览器进入怪异模式，确保页面跨浏览器渲染的一致性。 |
+| **最佳实践** | 在每个 HTML 页面的开头都使用 `<!DOCTYPE html>`。现代前端框架（如 Vue, React）的模板也会自动包含它。 |
+
+
+
+## 2 `<html>` 标签详解
+
+### 2.1. 是什么？
+
+`<html>` 标签代表一个HTML文档的**根元素**（Root Element）。它包裹着整个HTML文档的所有内容（除了 `<!DOCTYPE>` 声明）。所有其他元素（如 `<head>`、`<body>` 等）都是它的后代元素。
+
+*   **它是容器标签**：它有开始标签 `<html>` 和结束标签 `</html>`。
+*   **它是根元素**：它是文档树的根节点，所有其他元素都嵌套在其中。
+
+### 2.2. 作用是什么？
+
+它的主要作用是作为整个HTML文档的**容器**和**顶层结构**，为浏览器和搜索引擎定义文档的边界。
+
+### 2.3. 关键属性
+
+`<html>` 标签有两个非常重要的属性，通常建议总是加上它们：
+
+1.  **`lang` 属性**
+    *   **作用**：声明网页的**主要语言**。这非常重要，有助于：
+        *   **无障碍访问**：屏幕阅读器会根据 `lang` 属性选择正确的发音规则和语言包。
+        *   **搜索引擎优化（SEO）**：帮助搜索引擎按语言分类和返回结果。
+        *   **浏览器特性**：某些浏览器会根据语言提示询问是否翻译网页。
+    *   **示例**：
+        *   `lang="zh-CN"`：中文（简体，中国）
+        *   `lang="zh-TW"`：中文（繁体，台湾）
+        *   `lang="zh-HK"`：中文（繁体，香港）
+        *   `lang="en"`：英语
+        *   `lang="ja"`：日语
+        *   `lang="ko"`：韩语
+
+2.  **`dir` 属性**（可选，但需要时很重要）
+    *   **作用**：指定文本的**方向**（Text Direction）。
+    *   **值**：
+        *   `ltr`：从左到右（Left-to-Right），适用于大多数语言，如中文、英文等。
+        *   `rtl`：从右到左（Right-to-Left），适用于阿拉伯语、希伯来语等。
+
+### 2.4. 在文档中的位置
+
+它紧跟在 `<!DOCTYPE html>` 声明之后，包裹着 `<head>` 和 `<body>` 部分。
+
+```html
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <!-- 整个文档的所有内容都在这里面 -->
+  <head>...</head>
+  <body>...</body>
+</html>
+```
+
+好的，我们来系统梳理一下HTML文档的“大脑”和“控制中心”——`<head>` 部分。
+
+---
+
+## 3`<head>` 部分标签
+
+`<head>` 元素是所有**头部元素**的容器。它本身不包含任何直接显示在网页上的内容，而是承载了关于文档的**元数据（Metadata）**、引用的**外部资源**（如CSS和JS文件）以及**脚本和样式**等信息。这些信息用于指导浏览器如何渲染页面，以及帮助搜索引擎理解页面内容。
+
+### 3.1 `<head>` 内的主要标签及其作用：
+
+| 标签 | 重要性 | 作用描述 | 示例 |
+| :--- | :--- | :--- | :--- |
+| **`<title>`** | **必需** | 定义浏览器工具栏的标题、收藏网页时的默认名称、搜索引擎结果中的显示标题。**一个文档必须有且仅有一个 `<title>`**。 | `<title>我的学习笔记</title>` |
+| **`<meta>`** | **必需/重要** | 提供关于文档的元数据。**最关键的两个**：<br>1. `charset`：定义字符编码，**必须设**。<br>2. `viewport`：定义移动端视口，**响应式必备**。<br>其他如 `description`, `author` 等对SEO有益。 | `<meta charset="UTF-8">` <br> `<meta name="viewport" content="width=device-width, initial-scale=1.0">` <br> `<meta name="description" content="...">` |
+| **`<link>`** | **非常常用** | 用于链接**外部资源**。最常见的是链接外部CSS样式表，定义网站图标（favicon）。 | `<link rel="stylesheet" href="styles.css">` <br> `<link rel="icon" href="favicon.ico">` |
+| **`<style>`** | 常用 | 用于在文档内部直接编写**CSS样式**。优于`<link>`引入的样式表，但不利于代码复用和维护。 | `<style> body { color: red; } </style>` |
+| **`<script>`** | 非常常用 | 用于嵌入或引用**JavaScript代码**。可以放在`<head>`或`<body>`末尾。**常用`defer`或`async`属性避免阻塞渲染**。 | `<script src="app.js"></script>` <br> `<script> console.log('Hello'); </script>` |
+| **`<base>`** | 不常用 | 指定页面中所有**相对URL**的基准URL。一个文档中最多一个。 | `<base href="https://example.com/images/" target="_blank">` |
+
+---
+
+### 3.2`<head>` 部分最佳实践与总结笔记
+
+#### 3.2.1核心概念
+*   **位置**：位于 `<html>` 标签之内，`<body>` 标签之前。
+*   **内容**：包含的是“元信息”和“引用”，**不包含任何可见的网页内容**。
+*   **目的**：告诉浏览器和搜索引擎“关于这个页面的信息”以及“渲染这个页面需要什么资源”。
+
+#### 3.2.2必备标签 & 最佳实践
+1.  **字符编码第一**：`<meta charset="UTF-8">` 应作为 `<head>` 的第一个子元素，以防止乱码。
+2.  **视口声明不可少**：`<meta name="viewport" ...>` 是制作移动端响应式网站的**必需品**。
+3.  **标题必须有**：`<title>` 标签必须存在且语义明确，这对SEO和用户体验至关重要。
+4.  **优先外部样式**：使用 `<link>` 引入CSS，保持结构（HTML）与表现（CSS）分离，利于维护。
+5.  **脚本放尾部或使用 defer/async**：将 `<script>` 放在 `<body>` 末尾或使用 `defer` 属性，可以避免JavaScript加载和执行阻塞页面的渲染。
+6.  **Favicon**：使用 `<link rel="icon" ...>` 为网站添加一个小图标，提升专业度。
+
+#### 3.2.3一个标准的 `<head>` 结构示例
+
+```html
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <!-- 1. 元数据 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="这是一个关于前端开发的精彩学习笔记">
+    <meta name="author" content="Gage Wang">
+
+    <!-- 2. 标题 -->
+    <title>Head标签详解 - 前端学习笔记</title>
+
+    <!-- 3. 外部资源 -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+
+    <!-- 4. 内部样式 (非必要不推荐大量使用) -->
+    <style>
+        .internal-demo { color: gray; }
+    </style>
+
+    <!-- 5. 脚本 (通常建议放body末尾，或用defer/async) -->
+    <script src="js/analytics.js" defer></script>
+</head>
+<body>
+    <!-- 可见的网页内容在这里 -->
+</body>
+</html>
+```
+
+---
+
+## 4`<body>` 标签全面解析
+
+### 4.1. 是什么？
+
+`<body>` 标签定义了HTML文档的**主体**。它包含了文档的所有**可见内容**，也就是用户最终看到、听到并与之交互的一切。
+
+*   **它是容器标签**：它有开始标签 `<body>` 和结束标签 `</body>`。
+*   **它是内容的核心**：所有显示在浏览器窗口中的内容——文本、图片、链接、表格、视频、按钮等，都必须放在 `<body>` 标签内。
+
+### 4.2. 作用是什么？
+
+它的核心作用是作为**所有可见内容的容器**，是构建网页结构和呈现用户体验的基石。
+
+### 4.3. 内容类别（包含哪些东西？）
+
+`<body>` 内的元素非常丰富，但大致可以分为以下几类：
+
+| 类别 | 描述 | 常见标签举例 |
+| :--- | :--- | :--- |
+| **内容分区** | 用于组织页面结构，划分不同内容区块。 | `<header>`, `<nav>`, `<main>`, `<section>`, `<article>`, `<aside>`, `<footer>`, `<div>` |
+| **文本内容** | 用于定义段落、标题、列表等文本内容。 | `<h1>`-`<h6>`, `<p>`, `<ul>`, `<ol>`, `<li>`, `<blockquote>` |
+| **内联文本语义** | 用于定义单词或短句的含义、结构或样式。 | `<a>`, `<strong>`, `<em>`, `<span>`, `<br>`, `<code>` |
+| **多媒体与嵌入** | 用于嵌入图片、视频、音频等其他内容。 | `<img>`, `<video>`, `<audio>`, `<iframe>`, `<canvas>`, `<svg>` |
+| **表格内容** | 用于创建和展示表格数据。 | `<table>`, `<thead>`, `<tbody>`, `<tr>`, `<th>`, `<td>` |
+| **表单** | 用于创建用户输入和交互的控件。 | `<form>`, `<input>`, `<textarea>`, `<select>`, `<button>`, `<label>` |
+| **脚本** | 通常将 `<script>` 标签放在body末尾，以引入或执行JavaScript。 | `<script>` |
+
+---
+
+### 4.4`<body>` 标签的属性
+
+虽然现代开发中更倾向于使用CSS来控制样式，但`<body>`有一些传统属性需要了解（通常已被CSS替代）：
+
+*   `bgcolor`：设置页面背景颜色。（已废弃，用CSS `background-color`）
+*   `text`：设置页面默认文本颜色。（已废弃，用CSS `color`）
+*   `link`, `vlink`, `alink`：设置链接不同状态的颜色。（已废弃，用CSS `a:link`, `a:visited`, `a:active`）
+
+**现代最佳实践是使用CSS来设置所有样式。**
+
+---
+
+### 4.5总结与最佳实践
+
+| 项目 | 说明 |
+| :--- | :--- |
+| **定义** | HTML文档的主体，包含所有**可见内容**。 |
+| **位置** | 位于 `<head>` 部分之后，`</html>` 之前。 |
+| **语法** | `<body>` 开始，`</body>` 结束。 |
+| **重要性** | 是网页内容的**唯一**载体，是前端开发的**核心工作区**。 |
+| **内容原则** | **语义化**：使用合适的标签表达正确的内容含义（如用 `<nav>` 做导航，而不是一堆 `<div>`）。**结构化**：合理使用分区标签组织内容，逻辑清晰。 |
+| **最佳实践** | 1. **样式用CSS**：不要使用body的旧属性（如`bgcolor`），全部通过CSS控制。<br>2. **脚本放底部**：将 `<script>` 标签放在 `</body>` 关闭标签之前，以避免阻塞页面渲染。<br>3. **关注无障碍**：使用合理的结构和高对比度色彩，让所有人都能访问你的内容。 |
+
+### 4.6代码示例：一个简单的页面结构
+
+```html
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Body标签学习</title>
+    <style>
+        /* 所有样式都在CSS中定义 */
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header { background-color: white; padding: 1rem; }
+        nav { background-color: #eee; padding: 0.5rem; }
+    </style>
+</head>
+<body>
+    <!-- 这里是所有可见内容 -->
+    <header>
+        <h1>网站的标题</h1>
+    </header>
+
+    <nav>
+        <a href="#">首页</a> | <a href="#">关于</a> | <a href="#">联系</a>
+    </nav>
+
+    <main>
+        <article>
+            <h2>一篇文章的标题</h2>
+            <p>这是一段非常有意义的文章内容...</p>
+            <img src="image.jpg" alt="一张描述图片内容的文字">
+            <p>使用<strong>强调</strong>和<em>斜体</em>来丰富文本。</p>
+        </article>
+    </main>
+
+    <footer>
+        <p>© 2023 我的网站</p>
+    </footer>
+
+    <!-- 脚本放在body末尾 -->
+    <script>
+        console.log('页面加载完毕！');
+    </script>
+</body>
+</html>
+```
+
+---
+一个标准的HTML文档结构可以总结为：
+
+```html
+<!DOCTYPE html>       <!-- 文档类型声明：开启标准模式 -->
+<html lang="zh-CN">   <!-- 根元素：包裹一切，定义语言 -->
+  <head>              <!-- 头部：包含元数据和资源引用 -->
+    <meta charset="UTF-8">    <!-- 定义字符编码 -->
+    <meta name="viewport"...> <!-- 定义视口 -->
+    <title>...</title>        <!-- 定义标题 -->
+    <link rel="stylesheet"...><!-- 引用CSS -->
+  </head>
+  <body>              <!-- 主体：包含所有可见内容 -->
+    <header>...</header>
+    <nav>...</nav>
+    <main>...</main>
+    <footer>...</footer>
+    <script>...</script>      <!-- 引用或编写JS -->
+  </body>
+</html>
+```
+
+---
+
+## 5.文本标签
+文本标签主要用于定义段落、标题、列表等文本内容的结构和含义。
+
+### 5.1. 标题标签 (Heading Elements)
+
+用于定义不同级别的标题，从最重要的 `<h1>` 到最不重要的 `<h6>`。
+
+*   **`<h1>` - `<h6>`**
+    *   **作用**：定义文档的标题层级，构建页面大纲。**对于SEO和无障碍访问至关重要**。
+    *   **语义**：`<h1>` 表示主标题，一个页面通常**只应有一个**（表示页面的主要主题）。`<h2>` 是子标题，以此类推。
+    *   **注意**：不要为了调整字体大小而滥用标题标签（比如用 `<h4>` 只是因为它的默认大小看起来合适），应根据内容的**重要性等级**来选择。
+
+    ```html
+    <h1>这是一级标题（页面主标题）</h1>
+    <h2>这是二级标题（一个主要部分）</h2>
+    <h3>这是三级标题（一个子部分）</h3>
+    <!-- ... 一直到h6 -->
+    ```
+
+### 5.2. 段落与分组
+
+*   **`<p>`**
+    *   **作用**：定义一个**段落**。浏览器会自动在段落前后添加一些外边距。
+    *   **语义**：表示一个文本块，是内容的基本单位。
+
+    ```html
+    <p>这是一个段落。它包含了一些文本内容，浏览器会将它作为一个独立的文本块来渲染。</p>
+    <p>这是另一个段落。</p>
+    ```
+
+*   **`<hr>`**
+    *   **作用**：创建一条**水平分割线**，表示故事主题的转换或段落级别的分隔。
+    *   **注意**：是空元素，无需闭合标签。默认是一条简单的横线，但完全可以用CSS美化。
+
+    ```html
+    <p>第一部分的内容...</p>
+    <hr> <!-- 主题转换 -->
+    <p>第二部分的内容...</p>
+    ```
+
+*   **`<br>`**
+    *   **作用**：插入一个**换行符**。用于在段落内强制换行（比如写诗或地址时）。
+    *   **注意**：是空元素。**不要用多个 `<br>` 来创建段落间距**，间距应该用CSS控制。
+
+    ```html
+    <p>
+        第一行内容<br>
+        第二行内容<br>
+        第三行内容
+    </p>
+    ```
+
+*   **`<pre>`**
+    *   **作用**：定义**预格式化文本**。文本会保留所有的空格和换行，并以等宽字体显示。
+    *   **用途**：非常适合显示**代码片段**或**ASCII艺术**。
+
+    ```html
+    <pre>
+        function helloWorld() {
+            console.log("Hello, World!");
+        }
+    </pre>
+    ```
+
+*   **`<blockquote>`**
+    *   **作用**：定义一块**从其他来源引用的内容**。
+    *   **属性**：常用 `cite` 属性指明引用的来源URL。
+    *   **默认样式**：浏览器通常会向内缩进。
+
+    ```html
+    <blockquote cite="https://www.example.com/source.html">
+        <p>这是一段非常重要且来自知名人士的引述。</p>
+    </blockquote>
+    ```
+
+---
+
+### 5.3内联文本语义标签 (Inline Text Semantics)
+
+这些标签用于定义单词或短句的含义、结构或样式，通常嵌套在块级标签（如 `<p>`）内。
+
+| 标签 | 作用（语义！） | 默认样式 | 示例 |
+| :--- | :--- | :--- | :--- |
+| **`<a>`** | **超链接**，链接到另一个页面或位置。**最重要的交互元素**。 | 蓝色下划线 | `<a href="https://example.com">访问示例</a>` |
+| **`<strong>`** | 表示内容**非常重要**，具有**强烈的重要性**或**紧迫性**。 | **加粗** | `<strong>警告！</strong>` |
+| **`<em>`** | 表示内容的**强调重读**，可以改变句子的含义。 | *斜体* | 我<em>真的</em>很喜欢。 |
+| **`<mark>`** | 表示**突出显示**的文本，用于参考或标记目的。 | <mark>黄色背景</mark> | 请记住这个<mark>关键词</mark>。 |
+| **`<code>`** | 表示一段**计算机代码**。 | 等宽字体 | 使用 `<code>printf()</code>` 函数。 |
+| **`<abbr>`** | 表示一个**缩写或首字母缩略词**。用 `title` 属性提供全称。 | 有点状下划线 | `<abbr title="HyperText Markup Language">HTML</abbr>` |
+| **`<span>`** | **通用短语级容器**。本身无任何语义，用于配合CSS或JS为部分文本添加样式或操作。 | 无 | 这是<span class="highlight">需要高亮</span>的文字。 |
+
+---
+
+### 5.4 总结与最佳实践笔记
+
+| 核心原则 | 说明 |
+| :--- | :--- |
+| **语义化优先** | **为什么？** 1. **SEO**：帮助搜索引擎理解内容结构。2. **无障碍访问**：屏幕阅读器能正确解读。3. **可维护性**：代码更清晰易懂。**怎么做？** 用 `<strong>` 代替 `<b>`（纯视觉加粗），用 `<em>` 代替 `<i>`（纯视觉斜体）。 |
+| **结构层级清晰** | 正确使用 `<h1>`-`<h6>` 构建文档大纲，不要跳级（如 `h1` 后直接接 `h4`）。 |
+| **样式交给CSS** | 文本标签主要提供**含义**，具体的**外观**（颜色、大小、间距）应全部通过CSS控制。 |
+| **常用标签记忆** | **必须掌握**：`<h1>~<h6>`, `<p>`, `<a>`, `<strong>`, `<em>`, `<br>`, `<span>` **需要了解**：`<hr>`, `<pre>`, `<blockquote>`, `<mark>`, `<code>`, `<abbr>` |
+
+### 5.6 代码示例：综合运用
+
+```html
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>文本标签示例</title>
+    <style>
+        code { background-color: #eee; padding: 2px 4px; border-radius: 3px; }
+        .keyword { color: darkblue; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>HTML文本标签学习笔记</h1>
+    <p>这是关于<strong>重要文本标签</strong>的<em>强调性</em>介绍。</p>
+
+    <hr>
+
+    <h2>代码示例</h2>
+    <p>在JavaScript中，定义一个函数使用<code>function</code>关键字：</p>
+    <pre>
+        <code>
+function greet() {
+    console.log("Hello, World!");
+}
+        </code>
+    </pre>
+
+    <blockquote cite="https://developer.mozilla.org/">
+        <p>MDN Web Docs 是学习前端技术的绝佳资源。</p>
+    </blockquote>
+
+    <p>别忘了，<abbr title="Cascading Style Sheets">CSS</abbr>负责样式，<span class="keyword">HTML</span>负责结构。</p>
+
+    <p>这是第一行<br>这是第二行</p>
+
+    <p>请务必记住这个<mark>核心概念</mark>。</p>
+
+    <p><a href="https://www.example.com">点击这里了解更多</a></p>
+</body>
+</html>
+```
+
+
+
+---
+
+## 6 图片与媒体标签详解
+
+这类标签用于将外部资源（如图像、视频、音频）嵌入到网页中，极大地增强了内容的表现力。
+
+### 6.1. 图片标签：`<img>`
+
+这是最常用、最重要的媒体标签，用于嵌入图像。
+
+*   **作用**：在文档中嵌入一张图像。
+*   **元素类型**：**空元素**（没有结束标签）。
+*   **关键属性**：
+    *   **`src`（必需）**：指定图像文件的**路径**（URL）。可以是绝对路径或相对路径。
+    *   **`alt`（强烈建议必需）**：指定图像的**替代文本**。这是**无障碍访问和SEO的基石**。
+        *   **如果图片加载失败**，会显示这段文字。
+        *   **屏幕阅读器**会朗读这段文字给视障用户听。
+        *   **搜索引擎**根据这段文字理解图片内容。
+        *   **装饰性图片**可以设为 `alt=""`，但必须有这个属性。
+    *   **`width` 和 `height`**：设置图像的显示宽度和高度（单位是像素）。**最佳实践是只设置其中一个以保持比例，或者最好使用CSS来控制大小**。设置这两个属性可以帮助浏览器预留空间，减少布局偏移。
+    *   **`title`**：提供额外的提示信息。当鼠标悬停在图片上时会显示。
+
+```html
+<!-- 基本用法 -->
+<img src="images/cat.jpg" alt="一只可爱的橘猫在晒太阳">
+
+<!-- 设置大小和提示 -->
+<img src="logo.png" alt="公司Logo" width="200" title="点击返回首页">
+
+<!-- 加载失败示例 (src错误时，显示alt文字) -->
+<img src="wrong-path.jpg" alt="这是一张描述鸟类的图片">
+```
+
+### 6.2. 响应式图片：`<picture>` 与 `srcset`
+
+用于为不同设备或场景提供最合适的图片版本，优化加载性能和显示效果。
+
+*   **`<picture>` 元素**：作为一个容器，包含多个 `<source>` 元素和一个 `<img>` 元素。浏览器会选择第一个匹配的 `<source>`，如果没有匹配的，则使用 `<img>`。
+*   **`srcset` 属性**：用于 `<source>` 或 `<img>`，提供一系列图片源和其尺寸描述，让浏览器根据条件（如屏幕密度、视口大小）自动选择。
+*   **`sizes` 属性**：与 `srcset` 配合使用，定义媒体条件，告知浏览器图片在页面上的大致显示宽度。
+
+```html
+<!-- 艺术方向：不同视口下裁剪不同的图片 -->
+<picture>
+    <source media="(min-width: 650px)" srcset="images/hero-large.jpg">
+    <source media="(min-width: 465px)" srcset="images/hero-medium.jpg">
+    <!-- 默认选项 -->
+    <img src="images/hero-small.jpg" alt="描述图片内容">
+</picture>
+
+<!-- 分辨率切换：为高DPI屏幕提供高清图 -->
+<img srcset="images/logo.png,
+             images/logo-2x.png 2x"
+     src="images/logo.png" alt="公司Logo"> <!-- 老旧浏览器的回退方案 -->
+
+<!-- 更复杂的srcset与sizes配合 -->
+<img srcset="images/avatar-300w.jpg 300w,
+             images/avatar-600w.jpg 600w,
+             images/avatar-900w.jpg 900w"
+     sizes="(max-width: 600px) 300px,
+            900px"
+     src="images/avatar-900w.jpg" alt="用户头像">
+```
+
+### 6.3. 视频标签：`<video>`
+
+用于在文档中嵌入视频内容。
+
+*   **作用**：嵌入视频播放器。
+*   **关键属性**：
+    *   **`src`**：视频源文件路径。
+    *   **`controls`**：提供播放、暂停、音量等控制控件。**通常总是加上**。
+    *   **`autoplay`**：自动播放（**慎用**，很多浏览器会阻止带声音的自动播放）。
+    *   **`loop`**：循环播放。
+    *   **`muted`**：静音播放（常与 `autoplay` 一起使用以实现自动播放）。
+    *   **`poster`**：视频下载时或用户播放前显示的封面图。
+*   **多源支持**：使用 `<source>` 子元素提供多种格式的视频源，以提高浏览器兼容性。
+
+```html
+<!-- 基本用法 -->
+<video src="movie.mp4" controls width="600">
+    您的浏览器不支持HTML5视频标签。
+</video>
+
+<!-- 提供多种格式以确保兼容性 -->
+<video controls width="600" poster="poster.jpg">
+    <source src="movie.webm" type="video/webm">
+    <source src="movie.mp4" type="video/mp4">
+    <!-- 老旧浏览器的回退文字 -->
+    您的浏览器不支持HTML5视频标签。
+</video>
+
+<!-- 背景自动播放示例 -->
+<video autoplay loop muted playsinline>
+    <source src="background-video.mp4" type="video/mp4">
+</video>
+```
+
+### 6.4. 音频标签：`<audio>`
+
+用于在文档中嵌入音频内容。
+
+*   **作用**：嵌入音频播放器。
+*   **关键属性**：与 `<video>` 类似，有 `src`, `controls`, `autoplay`, `loop`, `muted`。**没有 `width`, `height`, `poster`**。
+*   **多源支持**：同样可以使用 `<source>` 子元素。
+
+```html
+<audio controls>
+    <source src="audio.ogg" type="audio/ogg">
+    <source src="audio.mp3" type="audio/mpeg">
+    您的浏览器不支持HTML5音频标签。
+</audio>
+```
+
+---
+
+### 6.5总结与最佳实践笔记
+
+| 标签 | 作用 | 关键点 |
+| :--- | :--- | :--- |
+| **`<img>`** | 嵌入图像 | **1. 必须加 `alt` 属性**（无障碍/SEO）。<br>**2. 使用正确格式**：WebP（现代）、JPEG（照片）、PNG（透明/logo）、SVG（图标/矢量）。<br>**3. 优化图片大小**：压缩图片以提高加载速度。 |
+| **`<picture>` / `srcset`** | 响应式图片 | **1. 艺术方向**：不同布局下显示不同裁剪的图片。<br>**2. 分辨率切换**：为高分辨率屏幕提供高清图。<br>**3. 性能优化**：让移动端下载更小的图片文件。 |
+| **`<video>`** | 嵌入视频 | **1. 提供 `controls`**：让用户能控制播放。<br>**2. 提供多种格式**：MP4（兼容性好）和 WebM（更小）。<br>**3. 谨慎使用 `autoplay`**：非常影响用户体验。 |
+| **`<audio>`** | 嵌入音频 | **1. 提供多种格式**：MP3 和 OGG。<br>**2. 同上，慎用 `autoplay`**。 |
+
+#### 通用最佳实践
+1.  **无障碍性**：始终为 `<img>` 提供有意义的 `alt` 文本，为视频提供字幕。
+2.  **性能**：媒体文件通常很大，务必进行**压缩和优化**。使用响应式技术避免在移动设备上加载大图。
+3.  **版权**：只使用你拥有版权或获得授权使用的媒体资源。
+
+### 6.5代码示例：综合页面
+
+```html
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>媒体内容展示</title>
+    <style>
+        body { font-family: sans-serif; max-width: 800px; margin: 0 auto; }
+        img, video { max-width: 100%; display: block; } /* 使媒体响应式 */
+    </style>
+</head>
+<body>
+    <header>
+        <h1>我的媒体集</h1>
+        <!-- 响应式Logo -->
+        <picture>
+            <source srcset="images/logo.webp" type="image/webp">
+            <img src="images/logo.png" alt="网站Logo" width="150">
+        </picture>
+    </header>
+
+    <main>
+        <article>
+            <h2>美丽的风景</h2>
+            <!-- 响应式图片 -->
+            <img srcset="images/landscape-480w.jpg 480w,
+                         images/landscape-800w.jpg 800w"
+                 sizes="(max-width: 600px) 480px, 800px"
+                 src="images/landscape-800w.jpg" 
+                 alt="群山环绕的湖泊，景色壮丽">
+            <p>这是一张描述自然风光的图片。</p>
+        </article>
+
+        <article>
+            <h2>产品介绍视频</h2>
+            <video controls poster="video-poster.jpg">
+                <source src="media/product-demo.webm" type="video/webm">
+                <source src="media/product-demo.mp4" type="video/mp4">
+                您的浏览器不支持视频播放。
+            </video>
+            <p>通过这个视频了解我们的产品如何工作。</p>
+        </article>
+
+        <article>
+            <h2>背景音乐</h2>
+            <audio controls>
+                <source src="media/background-music.ogg" type="audio/ogg">
+                <source src="media/background-music.mp3" type="audio/mpeg">
+                您的浏览器不支持音频播放。
+            </audio>
+        </article>
+    </main>
+</body>
+</html>
+```
+
+
+
+
+
