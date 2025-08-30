@@ -333,5 +333,3 @@ body { font-family: system-ui, sans-serif; line-height: 1.6; }
 /* ===== 响应式设计 ===== */
 @media (max-width: 768px) { /* 移动端样式 */ }
 ```
-
-接下来，您想先深入学习CSS的哪个特定领域呢？比如选择器的更多细节、盒模型、或者直接开始学习Flexbox布局？
